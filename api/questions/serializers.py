@@ -36,13 +36,13 @@ class GroupListSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = models.Group
-        fields = ['admin', 'title']
+        fields = ['id','admin', 'title']
 
 
 class QuestionListSerializer(serializers.ModelSerializer):
 
     class Meta:
             model = models.Question
-            fields = ['title', 'admin', 'category']
+            fields = ['id','title', 'category']
 
 

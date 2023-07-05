@@ -30,7 +30,7 @@ class GroupDetailView(APIView):
 
 class QuestionsListView(generics.ListAPIView):
     queryset = models.Question.objects.all()
-    serializer_class = serializers.QuestionSerializer
+    serializer_class = serializers.QuestionListSerializer
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     filterset_fields = ['category','group']
     search_fields = ['title']
@@ -81,7 +81,4 @@ class QuestionDetailView(APIView):
             return Response({
                 'message': 'something went wrong =('
             })
-        
-        
-
 
