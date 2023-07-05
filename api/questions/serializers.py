@@ -20,7 +20,7 @@ class VarianSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Variant
-        fields = '__all__'
+        exclude = ['status', 'question']
 
 
 class GroupSerializer(serializers.ModelSerializer):

@@ -26,3 +26,62 @@ class GroupDetailView(APIView):
             'group': serializer_group.data,
             'questions': serializer_question.data
         })
+
+
+class QuestionsListView(generics.ListAPIView):
+    queryset = models.Question.objects.all()
+    serializer_class = serializers.QuestionSerializer
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
+    filterset_fields = ['category','group']
+    search_fields = ['title']
+
+
+class QuestionDetailView(APIView):
+    def get(self, request, pk):
+        question = models.Question.objects.get(pk=pk)
+        answer = models.Variant.objects.filter(question = question)
+        serializer_question = serializers.QuestionSerializer(question)
+        serializer_answer = serializers.VarianSerializer(answer, many = True)
+
+        return Response({
+            'question': serializer_question.data,
+            'answers': serializer_answer.data 
+        })
+    
+    def post(self, request, pk):
+
+        try:
+            answer_id = request.POST.get('answer_id')
+            user = request.user
+            question = models.Question.objects.get(pk=pk)
+            answer = models.Variant.objects.get(id=answer_id)
+
+            try:
+                models.UserAnAnswer.objects.get(user = user, question = question)
+                return Response({
+                    'message': 'You have already Answered'
+                })
+
+            except:
+                if answer.status == True:
+                    models.UserAnAnswer.objects.create(
+                        user = user,
+                        question = question,
+                        status = True
+                    )
+                    return Response({'message':'your answer is True'})
+                
+                models.UserAnAnswer.objects.create(
+                    user = user,
+                    question = question,
+                )    
+                return Response({'message': 'Your answer is False'})
+        
+        except:
+            return Response({
+                'message': 'something went wrong =('
+            })
+        
+        
+
+
