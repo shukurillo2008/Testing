@@ -11,17 +11,10 @@ class CategorySerializer(serializers.ModelSerializer):
 class QuestionSerializer(serializers.ModelSerializer):
     category = serializers.SlugRelatedField(read_only=True, slug_field='title')
     group = serializers.SlugRelatedField(read_only=True, slug_field='title')
-    
+
     class Meta:
         model = models.Question
         fields = '__all__'
-
-
-class VarianSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = models.Variant
-        exclude = ['status', 'question']
 
 
 class GroupSerializer(serializers.ModelSerializer):
@@ -44,5 +37,13 @@ class QuestionListSerializer(serializers.ModelSerializer):
     category = serializers.SlugRelatedField(read_only=True, slug_field='title')
 
     class Meta:
-            model = models.Question
-            fields = ['id','title', 'category']
+        model = models.Question
+        fields = ['id','title', 'category']
+
+
+class AnAnswerSerializer(serializers.ModelSerializer):
+    question = serializers.SlugRelatedField(read_only=True, slug_field='title')
+
+    class Meta:
+        model = models.UserAnAnswer
+        exclude = ['user']
