@@ -10,6 +10,8 @@ class CategorySerializer(serializers.ModelSerializer):
 
 class QuestionSerializer(serializers.ModelSerializer):
     category = serializers.SlugRelatedField(read_only=True, slug_field='title')
+    group = serializers.SlugRelatedField(read_only=True, slug_field='title')
+    
     class Meta:
         model = models.Question
         fields = '__all__'
