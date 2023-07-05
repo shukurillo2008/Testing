@@ -13,6 +13,7 @@ class Group(models.Model):
     admin = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     title = models.CharField(max_length=255)
     body = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self) -> str:
         return self.title
@@ -23,6 +24,7 @@ class Question(models.Model):
     group = models.ForeignKey(Group, on_delete=models.SET_NULL, null=True)
     title = models.CharField(max_length=255)
     body = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self) -> str:
         return self.title
@@ -42,7 +44,8 @@ class UserAnswerGroup(models.Model):
     group = models.ForeignKey(Group, on_delete=models.SET_NULL, null=True)
     true_answer = models.PositiveIntegerField(default=0)
     false_answer = models.PositiveIntegerField(default=0)
-    
+    created = models.DateTimeField(auto_now_add=True)
+
     def __str__(self) -> str:
         return self.user.username
     
@@ -51,11 +54,8 @@ class UserAnAnswer(models.Model):
     question = models.ForeignKey(Question, on_delete=models.SET_NULL, null=True)
     status = models.BooleanField(default=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self) -> str:
         return self.question.title
     
-
-
-
-

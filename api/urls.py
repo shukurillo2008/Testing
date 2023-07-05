@@ -1,6 +1,6 @@
 from django.urls import path,include
 
 urlpatterns = [
-    path('',include('questions.urls')),
-    path('', include('dashboard.urls'))
+    path('',include('api.questions.urls')),
+    path('',include('api.dashboard.urls'))
 ]
