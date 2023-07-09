@@ -32,7 +32,7 @@ class Question(models.Model):
 
 class Variant(models.Model):
     answer = models.CharField(max_length=255)
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='variants')
     status = models.BooleanField(default=False)
 
     def __str__(self) -> str:
@@ -52,6 +52,7 @@ class UserAnswerGroup(models.Model):
 
 class UserAnAnswer(models.Model):
     question = models.ForeignKey(Question, on_delete=models.SET_NULL, null=True)
+    answer_group = models.ForeignKey(UserAnswerGroup, on_delete=models.SET_NULL, null=True, related_name='answer_group')
     status = models.BooleanField(default=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
