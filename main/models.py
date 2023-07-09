@@ -21,7 +21,7 @@ class Group(models.Model):
 
 class Question(models.Model):
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
-    group = models.ForeignKey(Group, on_delete=models.SET_NULL, null=True)
+    group = models.ForeignKey(Group, on_delete=models.SET_NULL, null=True, related_name='questions')
     title = models.CharField(max_length=255)
     body = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
@@ -52,7 +52,7 @@ class UserAnswerGroup(models.Model):
 
 class UserAnAnswer(models.Model):
     question = models.ForeignKey(Question, on_delete=models.SET_NULL, null=True)
-    answer_group = models.ForeignKey(UserAnswerGroup, on_delete=models.SET_NULL, null=True, related_name='answer_group')
+    answer_group = models.ForeignKey(UserAnswerGroup, on_delete=models.SET_NULL, null=True, related_name='ananswer')
     status = models.BooleanField(default=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)

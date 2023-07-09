@@ -18,17 +18,7 @@ class GroupDetailView(APIView):
 
     def get(self, request, pk):
         group = models.Group.objects.get(pk=pk)
-        question = models.Question.objects.filter(group = group)
-        # question_list = []
-
-        # for i in question:
-        #     variant = []
-        #     question_variants = models.Variant.objects.filter(question=i)
-        #     for x in question_variants:
-        #         variant.append(x)
-        #     i.varyants = variant
-        #     question_list.append(i)
-       
+        question = models.Question.objects.filter(group = group)       
         serializer_group = serializers.GroupSerializer(group)
         serializer_question = serializers.QuestionSerializer(question, many = True)
 
