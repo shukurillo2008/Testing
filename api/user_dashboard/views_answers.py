@@ -32,6 +32,7 @@ class MyAnAnswerDetailView(APIView):
 
 
 class MyAnswerGroupView(APIView):
+
     def get(self, request):
         answer_group = models.UserAnswerGroup.objects.filter(user = request.user)
         ser_answer_group = serializers.AnswerGroupSerializer(answer_group, many=True)
@@ -42,6 +43,7 @@ class MyAnswerGroupView(APIView):
 
 
 class MyAnswerGroupDetailView(APIView):
+
     def get(self, request, pk):
         answer_group = models.UserAnswerGroup.objects.get(pk = pk)
         ser_your_answer = serializers.AnswerGroupSerializer(answer_group) 
